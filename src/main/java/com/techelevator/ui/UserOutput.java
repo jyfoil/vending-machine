@@ -1,9 +1,5 @@
 package com.techelevator.ui;
 
-import java.math.BigDecimal;
-import java.util.Map;
-
-
 /**
  * Responsibilities: This class should handle formatting and displaying ALL
  * messages to the user
