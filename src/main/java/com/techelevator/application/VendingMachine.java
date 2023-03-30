@@ -6,7 +6,8 @@ import com.techelevator.ui.UserOutput;
 public class VendingMachine 
 {
     public void run()
-    {
+    { //restock method will possibly go here
+
         while(true)
         {
             UserOutput.displayHomeScreen();
@@ -22,10 +23,9 @@ public class VendingMachine
             }
             else if(choice.equals("exit"))
             {
-                // good bye
+                // goodbye
                 break;
             }
         }
     }
-    
 }
