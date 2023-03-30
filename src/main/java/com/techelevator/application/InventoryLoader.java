@@ -13,8 +13,12 @@ import java.util.Scanner;
 public class InventoryLoader {
 
     //variables
-    private Inventory inventory = new Inventory();
+    private Inventory inventory = new Inventory(); //make a getter(any instance where you have loader) or turn the full inventory as the return value for loadInventory
 
+    //getter
+    public Inventory getInventory() {
+        return inventory;
+    }
     //method
 
     public void loadInventory() { //get ID number, name, price and type item
