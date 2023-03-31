@@ -3,34 +3,27 @@ package com.techelevator.application;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
-public class VendingMachine 
-{
-    private InventoryLoader loader = new InventoryLoader();
-    private Inventory vendingInventory = loader.getInventory();
+public class VendingMachine {
 
+    private Inventory vendingInventory = new Inventory();
+    private InventoryLoader inventoryLoader = new InventoryLoader(vendingInventory);
 
+    public void run() {
+        inventoryLoader.loadInventory();
 
-    public void run()
-    { //restock method will possibly go here
-
-        while(true)
-        {
+        while (true) {
             UserOutput.displayHomeScreen();
             String choice = UserInput.getHomeScreenOption();
 
-            if(choice.equals("display"))
-            {
-                loader.loadInventory();
-                System.out.println("");
-                vendingInventory.display(); // display the vending machine slots
+            if (choice.equals("display")) {
 
-            }
-            else if(choice.equals("purchase"))
-            {
+                vendingInventory.display();
+
+            } else if (choice.equals("purchase")) {
                 // make a purchase
-            }
-            else if(choice.equals("exit"))
-            {
+                UserOutput.displayPurchaseMenu();
+                UserInput.getPurchaseScreenOption();
+            } else if (choice.equals("exit")) {
                 // goodbye
                 break;
             }

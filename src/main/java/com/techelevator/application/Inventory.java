@@ -1,6 +1,7 @@
 package com.techelevator.application;
 
 import com.techelevator.models.Item;
+import com.techelevator.ui.UserOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +14,14 @@ public class Inventory {
         this.inventory = new ArrayList<>();
     }
 
-    //methods
-    //stock - add item
     public void stockItem(Item Item) {
         inventory.add(Item);
     }
-    //display method -- not sure if it goes here??
+
     public void display() {
+        UserOutput.displayMessage("Vending Machine Stock:");
         for (Item eachItem : inventory) {
-            System.out.println(eachItem.getSlotIdentifier() + " " + eachItem.getName() + " " + eachItem.getPrice() + " " + eachItem.getQuantity());
+            System.out.println(eachItem.getSlotIdentifier() + " | " + eachItem.getName() + " | $" + eachItem.getPrice() + " | " + eachItem.getQuantity());
         }
     }
 
@@ -31,7 +31,7 @@ public class Inventory {
 //                    Every product is initially stocked to the maximum amount.
 //            A product that has run out must indicate that it is NO LONGER AVAILABLE.
 
-    }
+}
 
 
 
