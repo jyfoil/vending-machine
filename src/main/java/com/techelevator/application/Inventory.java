@@ -25,11 +25,15 @@ public class Inventory {
         }
     }
 
-//            list of all items in the machine with its quantity remaining:
-//            Each product has a slot identifier and a purchase price.
-//            Each slot has enough room for 6 of that product.
-//                    Every product is initially stocked to the maximum amount.
-//            A product that has run out must indicate that it is NO LONGER AVAILABLE.
+    public boolean findItemID(String slotID) {
+        for (Item eachItem : inventory) {
+            if (slotID.equals(eachItem.getSlotIdentifier())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
 

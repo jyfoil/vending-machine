@@ -29,5 +29,4 @@ public class UserOutput {
         System.out.println("***************************************************");
         System.out.println();
     }
-
 }
