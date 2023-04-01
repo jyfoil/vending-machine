@@ -24,7 +24,7 @@ public class Money {
     }
 
     public void feedMoney(BigDecimal amount) {
-        boolean isWholeNumber = money.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
+        boolean isWholeNumber = amount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
         if (isWholeNumber) {
             addMoney(amount);
         }

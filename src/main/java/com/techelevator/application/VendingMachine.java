@@ -13,14 +13,12 @@ public class VendingMachine {
     private InventoryLoader inventoryLoader = new InventoryLoader(vendingInventory);
     private Money machineMoney = new Money(BigDecimal.ZERO);
 
-    public void dispenseItem(Item item) {
+    private void dispenseItem(Item item) {
+        System.out.println("Name: " + item.getName() + "| Price: " + item.getPrice() + "| Money remaining: " + machineMoney.getMoney());
         System.out.println(item);
     }
 
     public void purchaseItem(String slotID) {
-        // Loop through inventory, find the slot ID
-        // Decrease item quantity by 1
-        // if quantity > 0
         for (Item eachItem : vendingInventory.getInventory()) {
 
             int itemQuantity = eachItem.getQuantity();
@@ -28,11 +26,14 @@ public class VendingMachine {
             BigDecimal itemPrice = eachItem.getPrice();
 
             if (itemQuantity > 0 && slotID.equals(itemSlotID) && machineMoney.getMoney().compareTo(itemPrice) >= 0) {
-                // decrease quantity of item if > 0
                 eachItem.decreaseQuantity();
                 machineMoney.decreaseMoney(itemPrice);
                 dispenseItem(eachItem);
                 return;
+            }
+
+            if (itemQuantity == 0) {
+                System.out.println("That item is no longer available.");
             }
         }
         UserOutput.displayMessage("You do not have enough money to purchase this item.");
@@ -49,32 +50,34 @@ public class VendingMachine {
 
                 vendingInventory.display();
 
+
             } else if (choice.equals("purchase")) {
-                UserOutput.displayPurchaseMenu();
-                String purchaseOptionChoice = UserInput.getPurchaseScreenOption(machineMoney);
+                boolean keepSelecting = true;
 
-                if (purchaseOptionChoice.equals("feed")) {
+                while (keepSelecting) {
+                    UserOutput.displayPurchaseMenu();
+                    String purchaseOptionChoice = UserInput.getPurchaseScreenOption(machineMoney);
 
-                    BigDecimal amount = UserInput.getFeedMoneyAmount();
-                    machineMoney.feedMoney(amount);
+                    if (purchaseOptionChoice.equals("feed")) {
 
-                } else if (purchaseOptionChoice.equals("select")) {
+                        BigDecimal amount = UserInput.getFeedMoneyAmount();
+                        machineMoney.feedMoney(amount);
 
-                    vendingInventory.display();
-                    String slotIDChoice = UserInput.getSlotID();
-                    boolean itemPresent = vendingInventory.findItemID(slotIDChoice);
+                    } else if (purchaseOptionChoice.equals("select")) {
 
-                    if (itemPresent) {
+                        vendingInventory.display();
+                        String slotIDChoice = UserInput.getSlotID();
+                        boolean itemPresent = vendingInventory.findItemID(slotIDChoice);
 
-                        purchaseItem(slotIDChoice);
-                        // dispense(SlotIDChoice)
-                    } else {
+                        if (itemPresent) {
 
-                        UserOutput.displayMessage("That item does not exist.");
+                            purchaseItem(slotIDChoice);
+                        } else {
+
+                            UserOutput.displayMessage("That item does not exist.");
+                        }
                     }
                 }
-
-
             } else if (choice.equals("exit")) {
                 break;
             }

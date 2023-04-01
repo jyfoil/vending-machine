@@ -25,7 +25,11 @@ public class Inventory {
     public void display() {
         UserOutput.displayMessage("Vending Machine Stock:");
         for (Item eachItem : inventory) {
-            System.out.println(eachItem.getSlotIdentifier() + " | " + eachItem.getName() + " | $" + eachItem.getPrice() + " | " + eachItem.getQuantity());
+            if (eachItem.getQuantity() == 0) {
+                System.out.println(eachItem.getSlotIdentifier() + " | " + eachItem.getName() + " | $" + eachItem.getPrice() + " | " + "Not Available");
+            } else {
+                System.out.println(eachItem.getSlotIdentifier() + " | " + eachItem.getName() + " | $" + eachItem.getPrice() + " | " + eachItem.getQuantity());
+            }
         }
     }
 
