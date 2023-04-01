@@ -13,6 +13,9 @@ public class VendingMachine {
     private InventoryLoader inventoryLoader = new InventoryLoader(vendingInventory);
     private Money machineMoney = new Money(BigDecimal.ZERO);
 
+    // Instance to keep track of discount
+//    private int numOfItemsPurchased = 0;
+
     private void dispenseItem(Item item) {
         System.out.println("Name: " + item.getName() + " | Price: " + item.getPrice() + " | Money remaining: " + machineMoney.getMoney());
         System.out.println(item);
@@ -46,6 +49,13 @@ public class VendingMachine {
                 break;
             }
         }
+
+//         Buy one get second one dollar off
+//        numOfItemsPurchased++;
+//        if (numOfItemsPurchased % 2 == 0) {
+//            machineMoney.decreaseMoney(BigDecimal.ONE);
+//            System.out.println("You have received a $1.00 discount");
+//        }
 
     }
 
@@ -83,7 +93,8 @@ public class VendingMachine {
                         if (itemPresent) {
                             purchaseItem(slotIDChoice);
                         } else {
-                            UserOutput.displayMessage("That item does not exist.");
+                            System.out.println();
+                            System.out.println("That item does not exist.");;
                         }
                     }
                 }
