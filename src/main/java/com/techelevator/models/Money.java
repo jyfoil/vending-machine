@@ -27,6 +27,8 @@ public class Money {
         boolean isWholeNumber = amount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
         if (isWholeNumber) {
             addMoney(amount);
+        } else {
+            System.out.println("You must feed whole dollar amounts ($1, $5, $10).");
         }
     }
 }

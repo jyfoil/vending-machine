@@ -14,11 +14,12 @@ public class VendingMachine {
     private Money machineMoney = new Money(BigDecimal.ZERO);
 
     private void dispenseItem(Item item) {
-        System.out.println("Name: " + item.getName() + "| Price: " + item.getPrice() + "| Money remaining: " + machineMoney.getMoney());
+        System.out.println("Name: " + item.getName() + " | Price: " + item.getPrice() + " | Money remaining: " + machineMoney.getMoney());
         System.out.println(item);
     }
 
     public void purchaseItem(String slotID) {
+
         for (Item eachItem : vendingInventory.getInventory()) {
 
             int itemQuantity = eachItem.getQuantity();
@@ -28,15 +29,24 @@ public class VendingMachine {
             if (itemQuantity > 0 && slotID.equals(itemSlotID) && machineMoney.getMoney().compareTo(itemPrice) >= 0) {
                 eachItem.decreaseQuantity();
                 machineMoney.decreaseMoney(itemPrice);
+                System.out.println();
                 dispenseItem(eachItem);
-                return;
+                break;
             }
 
-            if (itemQuantity == 0) {
-                System.out.println("That item is no longer available.");
+            if (slotID.equals(itemSlotID) && itemQuantity == 0) {
+                System.out.println();
+                System.out.println("That item is currently not available.");
+                break;
+            }
+
+            if (slotID.equals(itemSlotID) && machineMoney.getMoney().compareTo(itemPrice) <= 0) {
+                System.out.println();
+                System.out.println("You do not have enough money to purchase this item.");
+                break;
             }
         }
-        UserOutput.displayMessage("You do not have enough money to purchase this item.");
+
     }
 
     public void run() {
@@ -49,12 +59,13 @@ public class VendingMachine {
             if (choice.equals("display")) {
 
                 vendingInventory.display();
-
+                UserInput.pause();
 
             } else if (choice.equals("purchase")) {
                 boolean keepSelecting = true;
 
                 while (keepSelecting) {
+
                     UserOutput.displayPurchaseMenu();
                     String purchaseOptionChoice = UserInput.getPurchaseScreenOption(machineMoney);
 
@@ -70,10 +81,8 @@ public class VendingMachine {
                         boolean itemPresent = vendingInventory.findItemID(slotIDChoice);
 
                         if (itemPresent) {
-
                             purchaseItem(slotIDChoice);
                         } else {
-
                             UserOutput.displayMessage("That item does not exist.");
                         }
                     }

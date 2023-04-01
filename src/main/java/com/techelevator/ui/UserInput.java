@@ -65,7 +65,7 @@ public class UserInput {
 
     public static BigDecimal getFeedMoneyAmount() {
         System.out.println();
-        System.out.println("How much money do you want to spend?");
+        System.out.print("How much money would you like to feed in to the vending machine: ");
 
         String selectedOption = scanner.nextLine();
         BigDecimal option = new BigDecimal(selectedOption);
@@ -74,9 +74,14 @@ public class UserInput {
 
     public static String getSlotID() {
         System.out.println();
-        System.out.println("Choose an item ID: ");
-
-        String slotID = scanner.nextLine();
+        System.out.print("Choose an item ID: ");
+        String slotID = scanner.nextLine().toUpperCase();
         return slotID;
+    }
+
+    public static void pause() {
+        System.out.println();
+        System.out.println("Press enter to continue...");
+        scanner.nextLine();
     }
 }
