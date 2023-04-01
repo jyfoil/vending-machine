@@ -50,7 +50,7 @@ public class VendingMachine {
             }
         }
 
-//         Buy one get second one dollar off
+//      Buy one get second one dollar off
         numOfItemsPurchased++;
         if (numOfItemsPurchased % 2 == 0) {
             machineMoney.decreaseMoney(BigDecimal.ONE);
