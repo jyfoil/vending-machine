@@ -31,7 +31,14 @@ public class VendingMachine {
 
             if (itemQuantity > 0 && slotID.equals(itemSlotID) && machineMoney.getMoney().compareTo(itemPrice) >= 0) {
                 eachItem.decreaseQuantity();
-                machineMoney.decreaseMoney(itemPrice);
+                numOfItemsPurchased++;
+                if (numOfItemsPurchased != 0 && numOfItemsPurchased % 2 == 0) {
+                    BigDecimal subtractedPrice = itemPrice.subtract(BigDecimal.ONE);
+                    machineMoney.decreaseMoney(subtractedPrice);
+                    System.out.println("You have received a $1.00 discount.");
+                }  else {
+                    machineMoney.decreaseMoney(itemPrice);
+                }
                 System.out.println();
                 dispenseItem(eachItem);
                 break;
@@ -48,13 +55,6 @@ public class VendingMachine {
                 System.out.println("You do not have enough money to purchase this item.");
                 break;
             }
-        }
-
-//      Buy one get second one dollar off
-        numOfItemsPurchased++;
-        if (numOfItemsPurchased % 2 == 0) {
-            machineMoney.decreaseMoney(BigDecimal.ONE);
-            System.out.println("You have received a $1.00 discount");
         }
 
     }
