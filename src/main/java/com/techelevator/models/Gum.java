@@ -6,4 +6,9 @@ public class Gum extends Item {
     public Gum(String slotIdentifier,String name, BigDecimal price,  String type) {
         super(slotIdentifier, name, price, type);
     }
+
+    @Override
+    public String toString() {
+        return "Chewy, Chewy, Lots O Bubbles!";
+    }
 }

@@ -18,6 +18,10 @@ public class Inventory {
         inventory.add(Item);
     }
 
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
     public void display() {
         UserOutput.displayMessage("Vending Machine Stock:");
         for (Item eachItem : inventory) {
@@ -33,7 +37,6 @@ public class Inventory {
         }
         return false;
     }
-
 
 }
 

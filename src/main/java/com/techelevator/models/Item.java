@@ -34,4 +34,8 @@ public class Item {
         return quantity;
     }
 
+    public void decreaseQuantity() {
+        this.quantity -= 1;
+    }
+
 }

@@ -11,6 +11,10 @@ public class Money {
         return money.setScale(2, RoundingMode.HALF_EVEN);
     }
 
+    public void decreaseMoney(BigDecimal itemPrice) {
+        money = money.subtract(itemPrice);
+    }
+
     public Money(BigDecimal amount) {
         money = amount;
     }
