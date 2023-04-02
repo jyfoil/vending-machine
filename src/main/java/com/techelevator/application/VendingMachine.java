@@ -96,6 +96,10 @@ public class VendingMachine {
                             System.out.println();
                             System.out.println("That item does not exist.");;
                         }
+                    } else if (purchaseOptionChoice.equals("finish")) {
+                        BigDecimal remainingMoney = machineMoney.getMoney();
+                        machineMoney.displayChange(remainingMoney);
+                        keepSelecting = false;
                     }
                 }
             } else if (choice.equals("exit")) {
