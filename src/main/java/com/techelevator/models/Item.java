@@ -15,7 +15,7 @@ public class Item {
         this.name = name;
         this.price = price;
         this.type = type;
-        this.quantity = 1; // Change back to 6
+        this.quantity = 6;
     }
 
     public String getSlotIdentifier() {
