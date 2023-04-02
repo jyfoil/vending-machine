@@ -12,8 +12,7 @@ public class VendingMachine {
     private Inventory vendingInventory = new Inventory();
     private InventoryLoader inventoryLoader = new InventoryLoader(vendingInventory);
     private Money machineMoney = new Money(BigDecimal.ZERO);
-
-    // Instance to keep track of discount
+    private Audit auditFile = new Audit();
     private int numOfItemsPurchased = 0;
 
     private void dispenseItem(Item item) {
@@ -34,9 +33,11 @@ public class VendingMachine {
                 numOfItemsPurchased++;
                 if (numOfItemsPurchased != 0 && numOfItemsPurchased % 2 == 0) {
                     BigDecimal subtractedPrice = itemPrice.subtract(BigDecimal.ONE);
+                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased);
                     machineMoney.decreaseMoney(subtractedPrice);
                     System.out.println("You have received a $1.00 discount.");
-                }  else {
+                } else {
+                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased);
                     machineMoney.decreaseMoney(itemPrice);
                 }
                 System.out.println();
@@ -83,6 +84,7 @@ public class VendingMachine {
 
                         BigDecimal amount = UserInput.getFeedMoneyAmount();
                         machineMoney.feedMoney(amount);
+                        auditFile.writeAudit(null, machineMoney, numOfItemsPurchased);
 
                     } else if (purchaseOptionChoice.equals("select")) {
 
@@ -96,6 +98,10 @@ public class VendingMachine {
                             System.out.println();
                             System.out.println("That item does not exist.");;
                         }
+                    } else if (purchaseOptionChoice.equals("finish")) {
+                        BigDecimal remainingMoney = machineMoney.getMoney();
+                        machineMoney.displayChange(remainingMoney);
+                        keepSelecting = false;
                     }
                 }
             } else if (choice.equals("exit")) {
