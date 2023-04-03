@@ -19,7 +19,7 @@ public class Money {
         money = amount;
     }
 
-    private void addMoney(BigDecimal amount) {
+    public void addMoney(BigDecimal amount) throws NumberFormatException {
         money = money.add(amount);
     }
 
@@ -41,7 +41,7 @@ public class Money {
         int nickels = remainingCents / 5;
         remainingCents %= 5;
 
-        return new int[] {dollars, quarters, dimes, nickels};
+        return new int[]{dollars, quarters, dimes, nickels};
     }
 
     public void displayChange(BigDecimal amount) {
@@ -62,15 +62,6 @@ public class Money {
             System.out.print(coins[3] + " nickel(s) ");
         }
         System.out.println();
-    }
-
-    public void feedMoney(BigDecimal amount) {
-        boolean isWholeNumber = amount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
-        if (isWholeNumber) {
-            addMoney(amount);
-        } else {
-            System.out.println("You must feed whole dollar amounts ($1, $5, $10).");
-        }
     }
 
 }

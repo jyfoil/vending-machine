@@ -64,12 +64,23 @@ public class UserInput {
     }
 
     public static BigDecimal getFeedMoneyAmount() {
-        System.out.println();
-        System.out.print("How much money would you like to feed in to the vending machine: ");
+        while(true) {
+            try {
+                System.out.println();
+                System.out.print("How much money would you like to feed in to the vending machine: ");
+                String selectedOption = scanner.nextLine();
+                BigDecimal option = new BigDecimal(selectedOption);
 
-        String selectedOption = scanner.nextLine();
-        BigDecimal option = new BigDecimal(selectedOption);
-        return option;
+                boolean isWholeNumber = option.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
+                if (isWholeNumber) {
+                    return option;
+                }
+                System.out.println("You must feed whole dollar amounts ($1, $5, $10).");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input");
+            }
+        }
+
     }
 
     public static String getSlotID() {

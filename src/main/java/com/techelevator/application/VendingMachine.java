@@ -83,7 +83,7 @@ public class VendingMachine {
                     if (purchaseOptionChoice.equals("feed")) {
 
                         BigDecimal amount = UserInput.getFeedMoneyAmount();
-                        machineMoney.feedMoney(amount);
+                        machineMoney.addMoney(amount);
                         auditFile.writeAudit(null, machineMoney, numOfItemsPurchased, amount);
 
                     } else if (purchaseOptionChoice.equals("select")) {
