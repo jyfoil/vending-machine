@@ -100,6 +100,7 @@ public class VendingMachine {
                         }
                     } else if (purchaseOptionChoice.equals("finish")) {
                         BigDecimal remainingMoney = machineMoney.getMoney();
+                        auditFile.writeAudit(null, machineMoney, numOfItemsPurchased, null);
                         machineMoney.displayChange(remainingMoney);
                         keepSelecting = false;
                     }

@@ -20,7 +20,7 @@ public class InventoryLoader {
 
     public void loadInventory() {
 
-        File inventoryFile = new File("catering.csv");
+        File inventoryFile = new File("catering1.csv");
 
         try (Scanner inventoryReader = new Scanner(inventoryFile)) {
 

@@ -23,13 +23,16 @@ public class Audit {
         String output = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy  h:mm:ss a"));
         try (PrintWriter dataOutput = new PrintWriter(new FileOutputStream(auditFileName, true))) {
             if (item != null && numOfItems != 0 && numOfItems % 2 == 0) {
-                dataOutput.write(output + " " + item.getName() + " " + item.getSlotIdentifier() + " $" + money.getMoney() + " " + (money.getMoney().subtract(item.getPrice().subtract(BigDecimal.ONE))) +"\n");
+                dataOutput.write(output + " " + item.getName() + " " + item.getSlotIdentifier() + " $" + money.getMoney() + " $" + (money.getMoney().subtract(item.getPrice().subtract(BigDecimal.ONE))) +"\n");
                 dataOutput.flush();
             } else if (item != null) {
-                dataOutput.write(output + " " + item.getName() + " " + item.getSlotIdentifier() + " $" + money.getMoney() + " " + (money.getMoney().subtract(item.getPrice())) +"\n");
+                dataOutput.write(output + " " + item.getName() + " " + item.getSlotIdentifier() + " $" + money.getMoney() + " $" + (money.getMoney().subtract(item.getPrice())) +"\n");
                 dataOutput.flush();
-            } else {
+            } else if (item == null && amount != null){
                 dataOutput.write(output + " " + "MONEY FED: $" + money.getAddAmount(amount) + " $" + money.getMoney() +"\n");
+                dataOutput.flush();
+            } else{
+                dataOutput.write(output + " " + "CHANGE GIVEN: $" + money.getMoney() + " $ " + money.getMoney().subtract(money.getMoney()));
                 dataOutput.flush();
             }
         } catch (FileNotFoundException e) {
