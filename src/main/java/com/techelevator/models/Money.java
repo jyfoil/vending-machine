@@ -19,7 +19,7 @@ public class Money {
         money = amount;
     }
 
-    public void addMoney(BigDecimal amount) throws NumberFormatException {
+    public void addMoney(BigDecimal amount) {
         money = money.add(amount);
     }
 
