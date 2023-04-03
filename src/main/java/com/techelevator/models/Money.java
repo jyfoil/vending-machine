@@ -23,6 +23,10 @@ public class Money {
         money = money.add(amount);
     }
 
+    public BigDecimal getAddAmount(BigDecimal amount) {
+        return amount.setScale(2, RoundingMode.HALF_UP);
+    }
+
     public int[] calculateChange(BigDecimal amount) {
         int dollars = amount.intValue();
         BigDecimal remainingCentsBD = amount.subtract(new BigDecimal(dollars)).multiply(new BigDecimal("100"));
@@ -30,7 +34,7 @@ public class Money {
 
         int quarters = remainingCents / 25;
         remainingCents %= 25;
-//        remainingCents = remainingCents % 25
+
         int dimes = remainingCents / 10;
         remainingCents %= 10;
 

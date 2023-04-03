@@ -33,11 +33,11 @@ public class VendingMachine {
                 numOfItemsPurchased++;
                 if (numOfItemsPurchased != 0 && numOfItemsPurchased % 2 == 0) {
                     BigDecimal subtractedPrice = itemPrice.subtract(BigDecimal.ONE);
-                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased);
+                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased, BigDecimal.ZERO);
                     machineMoney.decreaseMoney(subtractedPrice);
                     System.out.println("You have received a $1.00 discount.");
                 } else {
-                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased);
+                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased, BigDecimal.ZERO);
                     machineMoney.decreaseMoney(itemPrice);
                 }
                 System.out.println();
@@ -84,7 +84,7 @@ public class VendingMachine {
 
                         BigDecimal amount = UserInput.getFeedMoneyAmount();
                         machineMoney.feedMoney(amount);
-                        auditFile.writeAudit(null, machineMoney, numOfItemsPurchased);
+                        auditFile.writeAudit(null, machineMoney, numOfItemsPurchased, amount);
 
                     } else if (purchaseOptionChoice.equals("select")) {
 

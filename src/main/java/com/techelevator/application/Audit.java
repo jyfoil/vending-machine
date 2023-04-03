@@ -18,7 +18,7 @@ public class Audit {
     private static Scanner scanner = new Scanner(System.in);
     private LocalDateTime date = LocalDateTime.now();
 
-    public void writeAudit(Item item, Money money, int numOfItems) {
+    public void writeAudit(Item item, Money money, int numOfItems, BigDecimal amount) {
         String auditFileName = "Audit.txt";
         String output = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy  h:mm:ss a"));
         try (PrintWriter dataOutput = new PrintWriter(new FileOutputStream(auditFileName, true))) {
@@ -29,7 +29,7 @@ public class Audit {
                 dataOutput.write(output + " " + item.getName() + " " + item.getSlotIdentifier() + " $" + money.getMoney() + " " + (money.getMoney().subtract(item.getPrice())) +"\n");
                 dataOutput.flush();
             } else {
-                dataOutput.write(output + " " + "MONEY FED: $" + money.getMoney() + "\n");
+                dataOutput.write(output + " " + "MONEY FED: $" + money.getAddAmount(amount) + " $" + money.getMoney() +"\n");
                 dataOutput.flush();
             }
         } catch (FileNotFoundException e) {
