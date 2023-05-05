@@ -9,13 +9,14 @@ public class Item {
     private BigDecimal price;
     private String type;
     private int quantity;
+    private final int MAX_QUANTITY = 6;
 
     public Item (String slotIdentifier,String name, BigDecimal price,  String type) {
         this.slotIdentifier = slotIdentifier;
         this.name = name;
         this.price = price;
         this.type = type;
-        this.quantity = 6;
+        this.quantity = MAX_QUANTITY;
     }
 
     public String getSlotIdentifier() {
