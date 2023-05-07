@@ -64,7 +64,7 @@ public class UserInput {
     }
 
     public static BigDecimal getFeedMoneyAmount() {
-        while(true) {
+        while (true) {
             try {
                 System.out.println();
                 System.out.print("How much money would you like to feed in to the vending machine: ");
@@ -72,10 +72,13 @@ public class UserInput {
                 BigDecimal option = new BigDecimal(selectedOption);
 
                 boolean isWholeNumber = option.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
-                if (isWholeNumber) {
+                boolean validAmount = option.compareTo(BigDecimal.TEN) <= 0 && option.compareTo(BigDecimal.ZERO) >= 0;
+
+                if (isWholeNumber && validAmount) {
                     return option;
                 }
                 System.out.println("You must feed whole dollar amounts ($1, $5, $10).");
+                System.out.println("Amount can't be higher than 10 dollars or less than 1 dollar");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input");
             }
