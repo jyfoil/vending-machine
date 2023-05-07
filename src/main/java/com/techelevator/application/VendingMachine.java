@@ -90,17 +90,8 @@ public class VendingMachine {
 
                         vendingInventory.display();
                         String slotIDChoice = UserInput.getSlotID();
-                        boolean itemPresent = vendingInventory.hasItemID(slotIDChoice);
+                        purchaseItem(slotIDChoice);
 
-
-                        // In refactored code the else can go inside that one instead
-                        if (itemPresent) {
-                            purchaseItem(slotIDChoice);
-                        } else {
-                            System.out.println();
-                            System.out.println("That item does not exist.");
-                            ;
-                        }
                     } else if (purchaseOptionChoice.equals("finish")) {
                         BigDecimal remainingMoney = machineMoney.getMoney();
                         auditFile.writeAudit(null, machineMoney, numOfItemsPurchased, null);
