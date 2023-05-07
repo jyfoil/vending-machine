@@ -33,13 +33,25 @@ public class Inventory {
         }
     }
 
-    public boolean findItemID(String slotID) {
+    public boolean hasItemID(String slotId) {
         for (Item eachItem : inventory) {
-            if (slotID.equals(eachItem.getSlotIdentifier())) {
+            if (slotId.equals(eachItem.getSlotIdentifier())) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Item getItemById(String slotId) {
+        Item selectedItem = null;
+
+        for (Item eachItem : inventory) {
+            if (slotId.equals(eachItem.getSlotIdentifier())) {
+                selectedItem = eachItem;
+            }
+        }
+
+        return selectedItem;
     }
 
 }

@@ -22,43 +22,43 @@ public class VendingMachine {
 
     public void purchaseItem(String slotID) {
 
-        for (Item eachItem : vendingInventory.getInventory()) {
 
-            int itemQuantity = eachItem.getQuantity();
-            String itemSlotID = eachItem.getSlotIdentifier();
-            BigDecimal itemPrice = eachItem.getPrice();
+        if (vendingInventory.hasItemID(slotID)) {
+            Item selectedItem = vendingInventory.getItemById(slotID);
+            int itemQuantity = selectedItem.getQuantity();
+            BigDecimal itemPrice = selectedItem.getPrice();
 
-            if (itemQuantity > 0 && slotID.equals(itemSlotID) && machineMoney.getMoney().compareTo(itemPrice) >= 0) {
-                eachItem.decreaseQuantity();
+            if (itemQuantity == 0) {
+                System.out.println();
+                System.out.println("That item is currently not available.");
+            } else if (machineMoney.getMoney().compareTo(itemPrice) <= 0) {
+                System.out.println();
+                System.out.println("You do not have enough money to purchase this item.");
+            }
+
+            if (itemQuantity > 0 && machineMoney.getMoney().compareTo(itemPrice) >= 0) {
+                selectedItem.decreaseQuantity();
                 numOfItemsPurchased++;
                 if (numOfItemsPurchased != 0 && numOfItemsPurchased % 2 == 0) {
                     BigDecimal subtractedPrice = itemPrice.subtract(BigDecimal.ONE);
-                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased, BigDecimal.ZERO);
+                    auditFile.writeAudit(selectedItem, machineMoney, numOfItemsPurchased, BigDecimal.ZERO);
                     machineMoney.decreaseMoney(subtractedPrice);
                     System.out.println("You have received a $1.00 discount.");
                 } else {
-                    auditFile.writeAudit(eachItem, machineMoney, numOfItemsPurchased, BigDecimal.ZERO);
+                    auditFile.writeAudit(selectedItem, machineMoney, numOfItemsPurchased, BigDecimal.ZERO);
                     machineMoney.decreaseMoney(itemPrice);
                 }
                 System.out.println();
-                dispenseItem(eachItem);
-                break;
+                dispenseItem(selectedItem);
             }
 
-            if (slotID.equals(itemSlotID) && itemQuantity == 0) {
-                System.out.println();
-                System.out.println("That item is currently not available.");
-                break;
-            }
-
-            if (slotID.equals(itemSlotID) && machineMoney.getMoney().compareTo(itemPrice) <= 0) {
-                System.out.println();
-                System.out.println("You do not have enough money to purchase this item.");
-                break;
-            }
+        } else {
+            System.out.println();
+            System.out.println("That item does not exist.");
         }
 
     }
+
 
     public void run() {
         inventoryLoader.loadInventory();
@@ -90,13 +90,16 @@ public class VendingMachine {
 
                         vendingInventory.display();
                         String slotIDChoice = UserInput.getSlotID();
-                        boolean itemPresent = vendingInventory.findItemID(slotIDChoice);
+                        boolean itemPresent = vendingInventory.hasItemID(slotIDChoice);
 
+
+                        // In refactored code the else can go inside that one instead
                         if (itemPresent) {
                             purchaseItem(slotIDChoice);
                         } else {
                             System.out.println();
-                            System.out.println("That item does not exist.");;
+                            System.out.println("That item does not exist.");
+                            ;
                         }
                     } else if (purchaseOptionChoice.equals("finish")) {
                         BigDecimal remainingMoney = machineMoney.getMoney();
